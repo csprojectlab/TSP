@@ -4,10 +4,10 @@
  * The things with lower fitness are supposed to be picked less often
  * Deciding on more often and less often is completely probabilistic
  */
-const CANVAS_WIDTH = 500;
-const CANVAS_HEIGHT = 600;
-const CITY_COUNT = 20;
-const POPULATION_COUNT = 20;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 650;
+const CITY_COUNT = 12;
+const POPULATION_COUNT = 500;
 
 let cities = [];
 let recordDistane;
