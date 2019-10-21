@@ -1,11 +1,16 @@
 function calculateFitness () {
+    let currentRecord = Infinity;
     for (let i = 0; i < POPULATION_COUNT; i++) {
         // Find distance of this particular order of cities
         let distance = calculateDistance(cities, population[i]);
         fitness[i] = 1 / (distance + 1);     // It should be inverse. 
-        if (distance < bestDistance) {
+        if (distance < bestDistance) {      // Updating the best from entire population
             bestDistance = distance;
             bestRoute = population[i];
+        }
+        if (distance < currentRecord) {     // Updating the best from current population
+            currentRecord = distance;
+            currentBest = population[i];
         }
     }    
 }
