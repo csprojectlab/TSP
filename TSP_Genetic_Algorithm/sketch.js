@@ -1,6 +1,8 @@
 // Genetic algorithm to solve the travelling salesman problem 
 /**
- * 
+ * The things with higher fitness are supposed to be picked more often
+ * The things with lower fitness are supposed to be picked less often
+ * Deciding on more often and less often is completely probabilistic
  */
 const CANVAS_WIDTH = 500;
 const CANVAS_HEIGHT = 600;
@@ -32,6 +34,20 @@ function draw () {
    background(0)
    calculateFitness();
    normalizeFitness();
+   nextGeneration();
+   fill(100);
+   stroke(255);
+   for (let i = 0; i < cities.length; i++)
+        ellipse(cities[i].x, cities[i].y, 8, 8)
+   noFill();
+   strokeWeight(1)
+   stroke(0, 255, 0)
+   beginShape();
+   for (let i = 0; i < bestRoute.length; i++) {
+        let index = bestRoute[i];
+        vertex (cities[index].x, cities[index].y);
+   }
+   endShape();
 }
 
 function calculateDistance (points, mapping) {
