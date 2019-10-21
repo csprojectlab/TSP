@@ -10,6 +10,7 @@ const POPULATION_COUNT = 10;
 let cities = [];
 let recordDistane;
 let bestRoute;
+let bestDistance = Infinity;
 let population = [];
 let fitness = [];
 
@@ -23,17 +24,14 @@ function setup () {
     }
     for (let i = 0; i < POPULATION_COUNT; i++) {
         population[i] = shuffle(order);
-    }
-    for (let i = 0; i < POPULATION_COUNT; i++) {
-        // Find distance of this particular order of cities
-        let distance = calculateDistance(cities, population[i]);
-        fitness[i] = distance;     // It should be inverse. 
     }    
 }
 
 
 function draw () {
-   
+   background(0)
+   calculateFitness();
+   normalizeFitness();
 }
 
 function calculateDistance (points, mapping) {
