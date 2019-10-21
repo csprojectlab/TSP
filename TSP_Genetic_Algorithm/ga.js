@@ -37,7 +37,9 @@ function pickOne (population, fitness) {
 function nextGeneration () {
     let newPopulation = [];
     for (let i = 0; i < POPULATION_COUNT; i++) {
-        let order = pickOne(population, fitness);
+        let orderA = pickOne(population, fitness);
+        let orderB = pickOne(population, fitness);
+        let order = crossOver(orderA, orderB);
         mutate (order, 0.01);
         newPopulation[i] = order;
     }
@@ -45,10 +47,28 @@ function nextGeneration () {
 }
 
 function mutate (arr, mutationRate) {
-    let indexF = floor(random(arr.length));
-    let indexS = floor(random(arr.length));
-    swap (arr, indexF, indexS);
+    for (let i = 0; i < CITY_COUNT; i++) {
+        if (random(1) < mutationRate) {
+            let indexF = floor(random(arr.length));
+            let indexS = floor(random(arr.length));
+            swap (arr, indexF, indexS);
+        }    
+    }
 }
+
+// We have to get rid of invalid cross over as well
+function crossOver (motherOrder, fatherOrder) {
+    // This algorithm has a name that I don't know ?????
+    let start = floor(random(motherOrder.length));
+    let end = floor(random(start + 1, motherOrder.length))
+    let newOrder = motherOrder.slice(start, end);
+    for (let i = 0; i < fatherOrder.length; i++) {
+        let city = fatherOrder[i];
+        if (!newOrder.includes(city)) {     // If city is not already there
+            newOrder.push(city)
+        }
+    }
+ }
 
 function swap (array, i, j) {
     let temp = array[i];
