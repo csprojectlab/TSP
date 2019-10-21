@@ -2,6 +2,7 @@
  * Find the distance travelled in a particular order and save it.
  * The swap function is the key here
  * We swap the vertices to make different shapes from the same point vectors
+ * Making different shapes is governed by using lexicograhpic ordering. 
  */
 
 const CANVAS_WIDTH = 500;
@@ -9,6 +10,7 @@ const CANVAS_HEIGHT = 400;
 const CITY_COUNT = 5;
 
 let cities = [];
+let order = [];
 let recordDistane;
 let bestRoute;
 
