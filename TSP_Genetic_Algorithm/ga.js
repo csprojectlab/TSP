@@ -68,6 +68,7 @@ function crossOver (motherOrder, fatherOrder) {
             newOrder.push(city)
         }
     }
+    return newOrder;
  }
 
 function swap (array, i, j) {
