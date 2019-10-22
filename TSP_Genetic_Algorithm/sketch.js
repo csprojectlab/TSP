@@ -6,10 +6,11 @@
  */
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 700;
-const CITY_COUNT = 12;
+const CITY_COUNT = 20;
 const POPULATION_COUNT = 700;
-const GENERATION_COUNT = 5000;
-
+const GENERATION_COUNT = 10000;
+const GRAPH_BORDER = 20;    // Pixels left from side
+const MAX_GENERATION_DISTANCE_DATA = 960;   
 
 let cities = [];
 let recordDistane;
@@ -18,7 +19,7 @@ let bestDistance = Infinity;
 let currentBest;        // Best in the current population
 let population = [];
 let fitness = [];
-let generationWiseDistance = [];
+let generationWiseDistance = [];   // Saving the best distance among the populations
 let currentGeneration = 1;
 
 function setup () {
@@ -39,6 +40,8 @@ function draw () {
    background(0)
    calculateFitness();
    normalizeFitness();
+   visualizeDistance(bestDistance);
+
    nextGeneration();
    fill(100);
    stroke(255);
@@ -73,11 +76,25 @@ function draw () {
         }
         endShape();
    pop();
-   visualizeDistance(bestDistance);
+   let percent = (currentGeneration / GENERATION_COUNT) * 100;
+   textSize(16);
+   noStroke();
+   fill(0, 255, 0);
+   push ()
+        translate(0, height / 2);
+        text ("Population: " + POPULATION_COUNT, 20, 20);
+        text ("Best Distance: " + nf(bestDistance, 0, 2), 150, 20);
+        text ("Total Generations: " + GENERATION_COUNT, 340, 20);
+        text ("Cities: " + CITY_COUNT, 540, 20);
+        fill(255, 0, 0)
+        text (nf(percent, 0, 2) + "% completed", 20, 40);
+   pop();
 }
 
 // Visualize the distance in the form of bars
-function visualizeDistance(distance) {
+function visualizeDistance(distance) {    
+    if (generationWiseDistance.length == MAX_GENERATION_DISTANCE_DATA)
+        generationWiseDistance = [];
     push();
         translate(0, height / 2)
         stroke(255);
@@ -85,9 +102,11 @@ function visualizeDistance(distance) {
         line (0, 0, width, 0);     // White separation line
         // Mapping the distance to barLength to fill the graph space
         let barLength = map (distance, 1, 4000, 0, height / 2);
+        generationWiseDistance.push(barLength);   // Saving the distance for graphical view
         stroke(210);
-
-
+        for (let i = 0; i < generationWiseDistance.length; i++) {
+            line (GRAPH_BORDER + i, height / 2, GRAPH_BORDER + i, (height / 2) - generationWiseDistance[i]);
+        }
     pop();
 }
 
