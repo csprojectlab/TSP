@@ -6,7 +6,7 @@
  */
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 700;
-const CITY_COUNT = 20;
+const CITY_COUNT = 8;
 const POPULATION_COUNT = 700;
 const GENERATION_COUNT = 10000;
 const GRAPH_BORDER = 20;    // Pixels left from side
@@ -97,6 +97,7 @@ function visualizeDistance(distance) {
         generationWiseDistance = [];
     push();
         translate(0, height / 2)
+        printPath();        // Function printing the best route
         stroke(255);
         strokeWeight(4);
         line (0, 0, width, 0);     // White separation line
@@ -108,6 +109,18 @@ function visualizeDistance(distance) {
             line (GRAPH_BORDER + i, height / 2, GRAPH_BORDER + i, (height / 2) - generationWiseDistance[i]);
         }
     pop();
+}
+
+function printPath () {
+    let printHeight = 60;
+    let textWidth = 105;
+    textSize(16);
+    text("Path: ", 20, printHeight);
+    printHeight += 20;
+    for (let i = 0; i < bestRoute.length; i++) {
+        let city = cities[bestRoute[i]];
+        text ("("+nf(city.x,0,1)+","+nf(city.y,0,1)+")", 20 + (i*textWidth), printHeight);
+    }
 }
 
 function calculateDistance (points, mapping) {
