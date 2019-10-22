@@ -4,7 +4,7 @@
  * The things with lower fitness are supposed to be picked less often
  * Deciding on more often and less often is completely probabilistic
  */
-const CANVAS_WIDTH = 600;
+const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 700;
 const CITY_COUNT = 12;
 const POPULATION_COUNT = 500;
@@ -21,7 +21,7 @@ function setup () {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     let order = [];
     for (let i = 0; i < CITY_COUNT; i++) {
-        let location = createVector (random(width), random(height/2));
+        let location = createVector (random(width / 2), random(height/2));
         cities.push(location); 
         order[i] = i;
     }
@@ -69,6 +69,21 @@ function draw () {
         }
         endShape();
    pop();
+   visualizeDistance(bestDistance);
+}
+
+// Visualize the distance in the form of bars
+function visualizeDistance(distance) {
+    push();
+        translate(CANVAS_WIDTH / 2 + 20, 0)
+        stroke(255);
+        strokeWeight(4);
+        line (0, 0, 0, height / 2);     // White separation line
+        // Mapping the distance to barLength to fill the graph space
+        let barLength = map (distance, 1, 4000, 0, height / 2);
+        
+
+    pop();
 }
 
 function calculateDistance (points, mapping) {
