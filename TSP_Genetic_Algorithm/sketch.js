@@ -7,7 +7,9 @@
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 700;
 const CITY_COUNT = 12;
-const POPULATION_COUNT = 500;
+const POPULATION_COUNT = 700;
+const GENERATION_COUNT = 5000;
+
 
 let cities = [];
 let recordDistane;
@@ -16,6 +18,8 @@ let bestDistance = Infinity;
 let currentBest;        // Best in the current population
 let population = [];
 let fitness = [];
+let generationWiseDistance = [];
+let currentGeneration = 1;
 
 function setup () {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -51,10 +55,10 @@ function draw () {
    endShape();
 
    push();
-        translate(0, height / 2);
+        translate(width / 2 + 20, 0);
         stroke(255)
         strokeWeight(4)
-        line(0, 0, width, 0)
+        line(0, 0, 0, height / 2)   // Separation line
         fill(210);
         stroke(0, 255, 0)
         for (let i = 0; i < cities.length; i++)
@@ -75,13 +79,14 @@ function draw () {
 // Visualize the distance in the form of bars
 function visualizeDistance(distance) {
     push();
-        translate(CANVAS_WIDTH / 2 + 20, 0)
+        translate(0, height / 2)
         stroke(255);
         strokeWeight(4);
-        line (0, 0, 0, height / 2);     // White separation line
+        line (0, 0, width, 0);     // White separation line
         // Mapping the distance to barLength to fill the graph space
         let barLength = map (distance, 1, 4000, 0, height / 2);
-        
+        stroke(210);
+
 
     pop();
 }

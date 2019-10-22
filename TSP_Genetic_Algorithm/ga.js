@@ -35,6 +35,11 @@ function pickOne (population, fitness) {
 }
 
 function nextGeneration () {
+    currentGeneration++;
+    if (currentGeneration == GENERATION_COUNT) {
+        noLoop();
+        console.log("Finished")
+    }
     let newPopulation = [];
     for (let i = 0; i < POPULATION_COUNT; i++) {
         let orderA = pickOne(population, fitness);
