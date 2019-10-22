@@ -50,7 +50,7 @@ function mutate (arr, mutationRate) {
     for (let i = 0; i < CITY_COUNT; i++) {
         if (random(1) < mutationRate) {
             let indexF = floor(random(arr.length));
-            let indexS = floor(random(arr.length));
+            let indexS = (indexF + 1) % arr.length;     // Take the next one
             swap (arr, indexF, indexS);
         }    
     }

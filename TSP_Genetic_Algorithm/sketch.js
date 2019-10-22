@@ -4,8 +4,8 @@
  * The things with lower fitness are supposed to be picked less often
  * Deciding on more often and less often is completely probabilistic
  */
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 650;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 700;
 const CITY_COUNT = 12;
 const POPULATION_COUNT = 500;
 
