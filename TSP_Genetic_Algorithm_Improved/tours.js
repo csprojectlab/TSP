@@ -10,7 +10,7 @@ class Journey {
     /**
      * Add function
      */
-    add (ciites) {
+    add (cities) {
         this.cities = cities;
     }
 
@@ -74,5 +74,42 @@ class Journey {
             }
         }
         return flag;
+    }
+
+    /**
+     * Crossover function. 
+     */
+    crossover (otherTour) {
+        let newTour = new Journey(otherTour.cities.length),
+            startPosition = floor (random() * this.cities.length),
+            endPosition = floor (random() * this.cities.length),
+            tourCounter = 0,
+            newCities = [];
+        if (startPosition > endPosition) {
+            let temp = startPosition;
+            startPosition = endPosition;
+            endPosition = temp;
+        }
+        for (let i = 0; i < otherTour.cities.length; i++) {
+            if (!this.contains(otherTour.cities[i], startPosition, endPosition))
+                newCities.push(otherTour.cities[i]);
+        }
+        for (let i = startPosition; i <= endPosition; i++)
+            newCities.push(this.cities[i]);
+        newTour.add(newCities);
+        return newTour;
+    }
+
+    /**
+     * Mutation function. 
+     */
+    mutate (mutation_rate) {
+        let randomIndex = 0;
+        for (let i = 0; i < this.cities.length; i++) {
+            if (random (1) < mutation_rate) {
+                randomIndex = floor (random(1) * this.cities.length);
+                this.swap(i, randomIndex);
+            }
+        }
     }
 }

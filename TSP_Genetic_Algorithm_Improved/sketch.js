@@ -24,6 +24,24 @@ function generateCities () {
     return cities;  
 }
 
+function drawGraph() {
+	stroke(200);
+	strokeWeight(5)
+
+	let max_dist = generationWiseDistance.reduce(function(a, b) {
+		return Math.max(a, b);
+	});
+
+	for (let i = 0; i < generationWiseDistance.length - 1; i++) {
+		// if (gen_wise_dist[i]) {
+			stroke(200);
+			strokeWeight(1);
+			line(20 + i, 250, 20 + i, 250 - (generationWiseDistance[i] / max_dist) * 150 );
+		// }
+	}
+
+}
+
 /**
  * Setup function. 
  */
@@ -35,6 +53,8 @@ function setup () {
         tournamentSize = 10;
         temperature = 1000,
         coolingRate = 0.03;
+    population = new Population (POPULATION_SIZE, mutationRate, elitism, tournamentSize);
+    population.boot(cities, temperature, coolingRate);
 }
 
 /**
@@ -42,4 +62,8 @@ function setup () {
  */
 function draw () {
     background (0);
+    population.evolve();
+    generationWiseDistance.push(population.tours[population.bestTourIndex].distanceCovered);
+    drawGraph();
+
 }
