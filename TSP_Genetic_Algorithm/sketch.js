@@ -4,13 +4,14 @@
  * The things with lower fitness are supposed to be picked less often
  * Deciding on more often and less often is completely probabilistic
  */
-const CANVAS_WIDTH = 1000;
+const CANVAS_WIDTH = 1200;
 const CANVAS_HEIGHT = 700;
-const CITY_COUNT = 8;
-const POPULATION_COUNT = 700;
+const CITY_COUNT = 16;
+const POPULATION_COUNT = 1000;
 const GENERATION_COUNT = 10000;
 const GRAPH_BORDER = 20;    // Pixels left from side
 const MAX_GENERATION_DISTANCE_DATA = 960;   
+const MUTATION_RATE = 0.01;
 
 let cities = [];
 let recordDistane;
@@ -67,7 +68,8 @@ function draw () {
         for (let i = 0; i < cities.length; i++)
             ellipse(cities[i].x, cities[i].y, 8, 8)
         strokeWeight(2)
-        fill(210)
+        // fill(210)
+        noFill();
         stroke(255)
         beginShape();
         for (let i = 0; i < currentBest.length; i++) {
@@ -83,7 +85,7 @@ function draw () {
    push ()
         translate(0, height / 2);
         text ("Population: " + POPULATION_COUNT, 20, 20);
-        text ("Best Distance: " + nf(bestDistance, 0, 2), 150, 20);
+        text ("Best Distance: " + nf(bestDistance, 0, 2), 160, 20);
         text ("Total Generations: " + GENERATION_COUNT, 340, 20);
         text ("Cities: " + CITY_COUNT, 540, 20);
         fill(255, 0, 0)
@@ -96,18 +98,21 @@ function visualizeDistance(distance) {
     if (generationWiseDistance.length == MAX_GENERATION_DISTANCE_DATA)
         generationWiseDistance = [];
     push();
-        translate(0, height / 2)
-        printPath();        // Function printing the best route
+        translate(0, height / 2)        
         stroke(255);
         strokeWeight(4);
         line (0, 0, width, 0);     // White separation line
         // Mapping the distance to barLength to fill the graph space
         let barLength = map (distance, 1, 4000, 0, height / 2);
         generationWiseDistance.push(barLength);   // Saving the distance for graphical view
-        stroke(210);
+        stroke(150);
+        strokeWeight(0.5)
         for (let i = 0; i < generationWiseDistance.length; i++) {
             line (GRAPH_BORDER + i, height / 2, GRAPH_BORDER + i, (height / 2) - generationWiseDistance[i]);
         }
+        fill(0,255,255)
+        noStroke();
+        printPath();        // Function printing the best route
     pop();
 }
 
@@ -117,9 +122,14 @@ function printPath () {
     textSize(16);
     text("Path: ", 20, printHeight);
     printHeight += 20;
+    let offset = 0;
     for (let i = 0; i < bestRoute.length; i++) {
         let city = cities[bestRoute[i]];
-        text ("("+nf(city.x,0,1)+","+nf(city.y,0,1)+")", 20 + (i*textWidth), printHeight);
+        text ("("+nf(city.x,0,1)+","+nf(city.y,0,1)+")", 20 + ((offset++)*textWidth), printHeight);
+        if (offset == 9) {
+            offset = 0;
+            printHeight += 20;
+        }
     }
 }
 
