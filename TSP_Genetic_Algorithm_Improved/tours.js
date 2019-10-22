@@ -112,4 +112,23 @@ class Journey {
             }
         }
     }
+
+    /**
+     * Draw route function. 
+     */
+    drawBestRoute () {
+        // Draw cities
+        fill(120);
+        stroke(255)
+        strokeWeight(1)
+        for (let i = 0; i < this.cities.length; i++) {
+            ellipse (this.cities[i].position.x, this.cities[i].position.y, 8, 8);
+        }
+        stroke(0,255,0);
+        noFill();
+        beginShape();
+            for (let i = 0; i < this.cities.length; i++)
+                vertex (this.cities[i].position.x, this.cities[i].position.y);
+        endShape();
+    }
 }

@@ -58,15 +58,13 @@ class Population {
      * Finding fittest from all the tours. 
      */
     fittest () {
-        let fittestJourney = this.tours[0],
-            fittestValue = this.tours[0].fitness(),
+        let fittestValue = this.tours[0].fitness(),
             fitValue = 0;
         this.bestTourIndex = 0;
         for (let i = 1; i < this.tours.length; i++) {
             fitValue = this.tours[i].fitness();
             if (fitValue > fittestValue) {
-                fittestValue = fitValue;
-                fittestJourney = this.tours[i];
+                fittestValue = fitValue;                
                 this.bestTourIndex = i;
             }
         }
@@ -126,6 +124,13 @@ class Population {
             newTours.push(tourChild);
         }
         this.tours = newTours;
+    }
+
+    /**
+     * Draw best route of this population. 
+     */
+    drawBestRoute () {
+        this.tours[this.bestTourIndex].drawBestRoute();
     }
 
 
