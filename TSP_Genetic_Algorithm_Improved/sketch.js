@@ -1,18 +1,15 @@
 /**
  * Global variables. 
  */
-const POPULATION_SIZE = 800,
+const POPULATION_SIZE = 10,
       MAX_GENERATION = 10000,
-      CITIES_COUNT = 55,
+      CITIES_COUNT = 20,
       C_WIDTH = 1100,
       C_HEIGHT = 650,
       TOURNAMENT_SIZE = 10,
       TEMPERATURE = 1000,
       COOLING_RATE = 0.03,
       MUTATION_RATE = 0.03;
-
-
-
 var population,
     generationCount = 0;
     generationWiseDistance = [];
