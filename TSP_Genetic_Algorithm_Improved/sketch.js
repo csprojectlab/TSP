@@ -1,7 +1,7 @@
 /**
  * Global variables. 
  */
-const POPULATION_SIZE = 10,
+const POPULATION_SIZE = 50,
       MAX_GENERATION = 10000,
       CITIES_COUNT = 20,
       C_WIDTH = 1100,

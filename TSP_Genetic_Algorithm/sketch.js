@@ -68,8 +68,8 @@ function draw () {
         for (let i = 0; i < cities.length; i++)
             ellipse(cities[i].x, cities[i].y, 8, 8)
         strokeWeight(2)
-        // fill(210)
-        noFill();
+        fill(210)
+        // noFill();
         stroke(255)
         beginShape();
         for (let i = 0; i < currentBest.length; i++) {
